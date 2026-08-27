@@ -24,13 +24,13 @@ pipeline{
         stage('Docker build - backend'){
             steps{
                 echo "docker build process started"
-                sh "docker build -t ecommmerce-backend:jenkins ./backend"
+                sh "docker build -t ecommerce-backend:jenkins ./backend"
             }
         }
         stage('Docker build - frontend'){
             steps{
                 echo "docker build process started"
-                sh "docker build -t ecommmerce-frontend:jenkins ./frontend"
+                sh "docker build -t ecommerce-frontend:jenkins ./frontend"
             }
         }
         
