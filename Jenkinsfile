@@ -33,9 +33,35 @@ pipeline{
                 sh "docker build -t ecommerce-frontend:jenkins ./frontend"
             }
         }
-        
+        stage('Docker login'){
+            steps{
+                echo "docker login process startes"
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME',passwordVariable:'DOCKER_PASSWORD')]) {
+                sh '''
+                   echo "$DOCKER_PASSWORD" | docker login \
+                   -u "$DOCKER_USERNAME" \
+                  --password-stdin   
+                   '''
+                }
+            }
+        }
+        stage('docker push backend to hub '){
+            steps{
+                echo " pushing all the stuff to docker hub "
+                sh " docker push nileshyadav1220/zero-downtine-ecommerce-backend:latest"
+            }
+        }
+        stage('docker push frontend to hub '){
+            steps{
+                    echo " pushing all the stuff to docker hub "
+                    sh " docker push nileshyadav1220/zero-downtine-ecommerce-frontend:latest"
+            }
+        }
     }
     post {
+        always{
+            sh "docker logout || true"
+        }
         success{
             echo "build completed successfully"
         }
