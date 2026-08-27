@@ -33,11 +33,7 @@ pipeline{
                 sh "docker build -t ecommmerce-frontend:jenkins ./frontend"
             }
         }
-        stage(' '){
-            steps{
-
-            }
-        }
+        
     }
     post {
         success{
